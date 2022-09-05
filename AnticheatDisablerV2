@@ -1,3 +1,4 @@
+-- anticheat disabler stolen from vxpe, this runs everytime you respawn or spawn.
 if shared.GuiLibrary == nil then
     repeat game:GetService("RunService").Heartbeat:wait() until shared.GuiLibrary ~= nil
 end
@@ -33,6 +34,9 @@ local ACDisabler = lib["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOp
                 c.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
                 c.Humanoid:ChangeState(Enum.HumanoidStateType.Running)
             end
+            if cc().Character:WaitForChild("Head"):FindFirstChild("Nametag") then
+                cc().Character.Head:FindFirstChild("Nametag")
+            end
         elseif AC == true and cc() and cc():FindFirstChild("ForceField") then
             c = cc()
             c.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,true)
@@ -58,5 +62,10 @@ p.CharacterAdded:Connect(function(c)
         task.wait(0.2)
         c.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
         c.Humanoid:ChangeState(Enum.HumanoidStateType.Running)
+        if c:FindFirstChild("Head") and c.Head:FindFirstChild("Nametag") then
+            c.Head:FindFirstChild("Nametag"):Destroy()
+        else
+            c:WaitForChild("Head",10):WaitForChild("Nametag",10):Destroy()
+        end
     end
 end)
