@@ -1,4 +1,16 @@
+if shared.GuiLibrary == nil then
+    repeat game:GetService("RunService").Heartbeat:wait() until shared.GuiLibrary ~= nil
+end
 local lib = shared.GuiLibrary
+if shared.GuiLibrary["ObjectsThatCanBeSaved"] == nil then
+    repeat game:GetService("RunService").Heartbeat:wait() until lib["ObjectsThatCanBeSaved"] ~= nil
+end
+if shared.GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"] == nil then
+    repeat game:GetService("RunService").Heartbeat:wait() until lib["ObjectsThatCanBeSaved"]["UtilityWindow"] ~= nil
+end
+if shared.GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"] == nil then
+    repeat game:GetService("RunService").Heartbeat:wait() until lib["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"] ~= nil
+end
 local AC = false
 local p = game.Players.LocalPlayer
 local cc = function() return p.Character end
