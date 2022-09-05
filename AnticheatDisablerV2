@@ -1,0 +1,50 @@
+local lib = shared.GuiLibrary
+local AC = false
+local p = game.Players.LocalPlayer
+local cc = function() return p.Character end
+local ACDisabler = lib["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOptionsButton({
+    Name = "AntiCheatDisablerV2",
+    Function = function(callback)
+        AC = callback
+        if AC == true and cc() and not cc():FindFirstChild("ForceField") then
+            c = cc()
+            c.Humanoid.Health = 0
+            c.Humanoid.MaxHealth = 0
+            p.CharacterAdded:Wait()
+            cc():WaitForChild("ForceField")
+            if cc() and cc():FindFirstChild("ForceField") then
+                c = cc()
+                c.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,true)
+                c.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+                repeat task.wait() until c.Humanoid.MoveDirection ~= Vector3.zero
+                task.wait(0.2)
+                c.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+                c.Humanoid:ChangeState(Enum.HumanoidStateType.Running)
+            end
+        elseif AC == true and cc() and cc():FindFirstChild("ForceField") then
+            c = cc()
+            c.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,true)
+            c.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+            repeat task.wait() until c.Humanoid.MoveDirection ~= Vector3.zero
+            task.wait(0.2)
+            c.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+            c.Humanoid:ChangeState(Enum.HumanoidStateType.Running)
+        end
+    end,
+    HoverText = "Disables the anticheat and gives you godmode everytime you respawn/spawn."
+})
+
+p.CharacterAdded:Connect(function(c)
+    if AC then
+        c = cc()
+        if not c:FindFirstChildWhichIsA("ForceField") then
+            repeat game:GetService("RunService").Heartbeat:wait() until c:FindFirstChildWhichIsA("ForceField")
+        end
+        c.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,true)
+        c.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+        repeat task.wait() until c.Humanoid.MoveDirection ~= Vector3.zero
+        task.wait(0.2)
+        c.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+        c.Humanoid:ChangeState(Enum.HumanoidStateType.Running)
+    end
+end)
